@@ -1,0 +1,141 @@
+h1 {
+    margin: 0 0 8px;
+    font-size: 20px
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: var(--muted)
+}
+
+.login-container {
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 28px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.branding {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px
+}
+
+.lead {
+    margin: 0 0 20px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.form-group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+input[type="email"],
+input[type="password"] {
+    padding: 12px 12px;
+    border-radius: 10px;
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    color: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: box-shadow .15s, border-color .15s, transform .05s;
+}
+
+input::placeholder {
+    color: rgba(230, 238, 248, 0.35)
+}
+
+input:focus {
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.12);
+    border-color: rgba(124, 58, 237, 0.6);
+    transform: translateY(-1px);
+    outline: none;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+.checkbox {
+    display: flex;
+    gap: 8px;
+    align-items: center
+}
+
+.btn {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 0;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 8px 20px rgba(12, 10, 35, 0.6);
+}
+
+.btn:active {
+    transform: translateY(1px)
+}
+
+.btn:hover {
+    background: #357ab7;
+}
+
+.success {
+    color: var(--success);
+    font-size: 13px;
+    margin-top: 8px
+}
+
+.error {
+    color: var(--danger);
+    font-size: 13px;
+    margin-top: 8px
+}
+
+.muted-link {
+    color: var(--muted);
+    font-size: 13px;
+    text-decoration: none
+}
+
+.muted-link:hover {
+    text-decoration: underline;
+    color: #cbd5e1
+}
