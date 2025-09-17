@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "@tanstack/react-query"
 import { API_URL } from "../../utils/api.utils"
 import InnerImageZoom from "react-inner-image-zoom";
@@ -27,13 +28,15 @@ export default function AnalysisPage() {
             <h1>Analysis Report</h1>
             <p className="lead">Click the button below to view the analysis image and details.</p>
             <button className="btn" id="showBtn" onClick={onClick}>Show Analysis</button>
-            <InnerImageZoom src={API_URL + "/get_image"} />
             {data && (
-                data.map((d) => {
-                    return (
-                        <p>{d[1]}</p>
-                    )
-                })
+                <>
+                    <InnerImageZoom zoomScale={0.8} src={API_URL + "/get_image"} />
+                    {data.map((d: any) => {
+                        return (
+                            <p>{d[1]}</p>
+                        )
+                    })}
+                </>
             )}
         </div>
     )
