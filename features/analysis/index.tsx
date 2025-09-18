@@ -17,8 +17,6 @@ export default function AnalysisPage() {
         ),
     })
 
-    console.log(data)
-
     function onClick() {
         refetch()
     }
@@ -31,9 +29,9 @@ export default function AnalysisPage() {
             {data && (
                 <>
                     <InnerImageZoom zoomScale={0.8} src={API_URL + "/get_image"} />
-                    {data.map((d: any) => {
+                    {data.map((d: any, i: number) => {
                         return (
-                            <p>{d[1]}</p>
+                            <p key={i}>{d[1]} <span style={{ color: d[2] }}>{Object.keys(d[0]).join(", ")}</span></p>
                         )
                     })}
                 </>
