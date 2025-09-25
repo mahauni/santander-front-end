@@ -12,7 +12,7 @@ export default function AnalysisPage() {
         retry: false, // this makes don't retry till a success
         refetchOnWindowFocus: false,
         queryKey: ["analysis"],
-        queryFn: () => fetch(API_URL + "/get_analysis").then((res) =>
+        queryFn: () => fetch(API_URL + "analysis/make").then((res) =>
             res.json()
         ),
     })
@@ -28,7 +28,7 @@ export default function AnalysisPage() {
             <button className="btn" id="showBtn" onClick={onClick}>Show Analysis</button>
             {data && (
                 <>
-                    <InnerImageZoom zoomScale={0.8} src={API_URL + "/get_image"} />
+                    <InnerImageZoom zoomScale={0.8} src={API_URL + "analysis/image"} />
                     {data.map((d: any, i: number) => {
                         return (
                             <p key={i}>{d[1]} <span style={{ color: d[2] }}>{Object.keys(d[0]).join(", ")}</span></p>
