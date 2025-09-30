@@ -1,6 +1,8 @@
 services:
   vite:
     container_name: vite
+    environment:
+      - VITE_API_URL=http://localhost:5000/api/v1/
     build:
       context: .
       dockerfile: Dockerfile

@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AnalysisPageRoute from './analysisPage.tsx';
 import LoginPageRoute from './loginPage.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import DashboardPageRoute from './dashboardPage.tsx';
 
 const router = createBrowserRouter([
     {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
     {
         path: '/analysis',
         element: <AnalysisPageRoute />,
+    },
+    {
+        path: '/dashboard',
+        element: <DashboardPageRoute />,
     },
 ]);
 
