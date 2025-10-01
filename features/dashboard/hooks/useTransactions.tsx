@@ -11,8 +11,15 @@ export type Transaction = {
     date: string
 }
 
-export function useTransactions(): UseQueryResult<Transaction[], Error> {
-  return useQuery<Transaction[], Error>({
+type TransactionQuery = {
+    pix: Transaction[]
+    boleto: Transaction[]
+    sistemico: Transaction[]
+    ted: Transaction[]
+} & UseQueryResult<Transaction[], Error>
+
+export function useTransactions(): TransactionQuery {
+  const query = useQuery<Transaction[], Error>({
     refetchOnWindowFocus: true,
     queryKey: ["transactions"],
     queryFn: async () => {
@@ -25,4 +32,12 @@ export function useTransactions(): UseQueryResult<Transaction[], Error> {
       return response.json();
     },
   });
+
+  const pix = query.data?.filter((value) => value.type === "PIX") ?? []
+  const boleto = query.data?.filter((value) => value.type === "BOLETO") ?? []
+  const ted = query.data?.filter((value) => value.type === "TED") ?? []
+  const sistemico = query.data?.filter((value) => value.type === "SISTEMICO") ?? []
+
+
+  return {...query, pix, boleto, ted, sistemico }
 }

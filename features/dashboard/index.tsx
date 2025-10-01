@@ -10,7 +10,7 @@ import Stack from "@mui/material/Stack";
 import AppNavbar from "./components/AppNavbar";
 import Header from "./components/Header";
 import MainGrid from "./components/MainGrid";
-import SideMenu from "./components/SideMenu";
+import SideMenu from "../../components/SideMenu";
 import AppTheme from "../../components/shared-theme/AppTheme";
 import {
   chartsCustomizations,

@@ -8,14 +8,15 @@ import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import PixIcon from '@mui/icons-material/Pix';
 
 import {
-  IndiaFlag,
-  UsaFlag,
-  BrazilFlag,
-  GlobeFlag,
+  BoletoIcon,
+  SistemicoIcon,
+  TedIcon,
 } from '../internals/components/CustomIcons';
 import { useValueByType } from '../hooks/useValueByType';
+import { formatBRL } from '../utils/money.utils';
 
 
 interface StyledTextProps {
@@ -89,11 +90,6 @@ const colors = [
   'hsl(220, 20%, 25%)',
 ];
 
-const formatBRL = new Intl.NumberFormat('pt-BR', {
-  style: 'currency',
-  currency: 'BRL'
-});
-
 export default function ChartValueByType() {
   const { data: valueByType } = useValueByType()
 
@@ -112,30 +108,28 @@ export default function ChartValueByType() {
     {
       name: 'BOLETO',
       value: ((valueByType.BOLETO / total) * 100).toFixed(2),
-      flag: <IndiaFlag />,
+      flag: <BoletoIcon />,
       color: 'hsl(220, 25%, 65%)',
     },
     {
       name: 'PIX',
       value: ((valueByType.PIX / total) * 100).toFixed(2),
-      flag: <UsaFlag />,
+      flag: <PixIcon />,
       color: 'hsl(220, 25%, 45%)',
     },
     {
       name: 'SISTEMICO',
       value: ((valueByType.SISTEMICO/ total) * 100).toFixed(2),
-      flag: <BrazilFlag />,
+      flag: <SistemicoIcon />,
       color: 'hsl(220, 25%, 30%)',
     },
     {
       name: 'TED',
       value: ((valueByType.TED / total) * 100).toFixed(2),
-      flag: <GlobeFlag />,
+      flag: <TedIcon />,
       color: 'hsl(220, 25%, 20%)',
     },
   ];
-
-
 
   return (
     <Card
@@ -171,13 +165,13 @@ export default function ChartValueByType() {
             <PieCenterLabel primaryText={totalBRL} secondaryText="Total" />
           </PieChart>
         </Box>
-        {types.map((country, index) => (
+        {types.map((type, index) => (
           <Stack
             key={index}
             direction="row"
             sx={{ alignItems: 'center', gap: 2, pb: 2 }}
           >
-            {country.flag}
+            {type.flag}
             <Stack sx={{ gap: 1, flexGrow: 1 }}>
               <Stack
                 direction="row"
@@ -188,19 +182,19 @@ export default function ChartValueByType() {
                 }}
               >
                 <Typography variant="body2" sx={{ fontWeight: '500' }}>
-                  {country.name}
+                  {type.name}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {country.value}%
+                  {type.value}%
                 </Typography>
               </Stack>
               <LinearProgress
                 variant="determinate"
-                aria-label="Number of users by country"
-                value={country.value}
+                aria-label="Numero de quanto pagaram com o tipo de pagamento"
+                value={parseFloat(type.value)}
                 sx={{
                   [`& .${linearProgressClasses.bar}`]: {
-                    backgroundColor: country.color,
+                    backgroundColor: type.color,
                   },
                 }}
               />

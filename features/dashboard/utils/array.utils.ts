@@ -1,7 +1,7 @@
 import { Transaction } from "../hooks/useTransactions";
 
-export function filterLast30Days(transactions: any[]) {
-  const today = new Date("2025-05-30");
+export function filterLast30Days(transactions: any[], date: string) {
+  const today = new Date(date);
   const thirtyDaysAgo = new Date(today);
   thirtyDaysAgo.setDate(today.getDate() - 30);
   
@@ -11,7 +11,7 @@ export function filterLast30Days(transactions: any[]) {
   });
 }
 
-export function getTimesPerDate(transaction: Transaction[]) {
+export function getTimesPerDate(transaction: Transaction[]): { date: string, count: unknown }[] {
   return Object.entries(
     transaction.reduce((acc, item) => {
       acc[item.date] = (acc[item.date] || 0) + 1;

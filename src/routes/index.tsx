@@ -5,30 +5,30 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashboardPageRoute from './dashboardPage.tsx';
 
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <LoginPageRoute />,
-    },
-    {
-        path: '/analysis',
-        element: <AnalysisPageRoute />,
-    },
-    {
-        path: '/dashboard',
-        element: <DashboardPageRoute />,
-    },
+  {
+    path: '/',
+    element: <LoginPageRoute />,
+  },
+  {
+    path: '/analysis',
+    element: <AnalysisPageRoute />,
+  },
+  {
+    path: '/dashboard',
+    element: <DashboardPageRoute />,
+  },
 ]);
 
 const queryClient = new QueryClient()
 
 function App() {
-    return (
-        <div>
-            <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router} />
-            </QueryClientProvider>
-        </div>
-    )
+  return (
+    <div>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </div>
+  )
 }
 
 export default App

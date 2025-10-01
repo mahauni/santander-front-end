@@ -1,17 +1,19 @@
 import * as React from 'react';
-import dayjs, { Dayjs } from 'dayjs';
 import { useForkRef } from '@mui/material/utils';
 import Button from '@mui/material/Button';
 import CalendarTodayRoundedIcon from '@mui/icons-material/CalendarTodayRounded';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker, DatePickerFieldProps } from '@mui/x-date-pickers/DatePicker';
+import { useTimePeriod } from '../hooks/useTimePeriod'
 import {
   useParsedFormat,
   usePickerContext,
   useSplitFieldProps,
 } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ButtonFieldProps extends DatePickerFieldProps {}
 
 function ButtonField(props: ButtonFieldProps) {
@@ -40,14 +42,18 @@ function ButtonField(props: ButtonFieldProps) {
 }
 
 export default function CustomDatePicker() {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2023-04-17'));
+  const { dateDayjs, setDate } = useTimePeriod()
+
+  function onChangeDate(value: any) {
+    setDate(value.format('YYYY-MM-DD'))
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
-        value={value}
-        label={value == null ? null : value.format('MMM DD, YYYY')}
-        onChange={(newValue) => setValue(newValue)}
+        value={dateDayjs}
+        label={dateDayjs == null ? null : dateDayjs.format('MMM DD, YYYY')}
+        onChange={onChangeDate}
         slots={{ field: ButtonField }}
         slotProps={{
           nextIconButton: { size: 'small' },
