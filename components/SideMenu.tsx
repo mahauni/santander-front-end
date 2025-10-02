@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import MenuContent from './MenuContent';
 import OptionsMenu from './OptionsMenu';
+import SantanderLogo from './SantanderLogo';
 
 const drawerWidth = 240;
 
@@ -33,6 +34,15 @@ export default function SideMenu() {
         },
       }}
     >
+      <Box
+        sx={{
+          display: 'flex',
+          mt: 'calc(var(--template-frame-height, 0px) + 4px)',
+          p: 1.5,
+        }}
+      >
+        <SantanderLogo />
+      </Box>
       <Divider />
       <Box
         sx={{

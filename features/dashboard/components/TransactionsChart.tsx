@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import { LineChart, LineSeries } from '@mui/x-charts/LineChart';
+import { LineChart, type LineSeries } from '@mui/x-charts/LineChart';
 import { useTransactions } from '../hooks/useTransactions';
 import { formatBRL } from '../utils/money.utils';
 
@@ -107,8 +107,8 @@ export default function TransactionsChart() {
   const totalBRL = formatBRL.format(total);
 
   return (
-    <Card variant="outlined" sx={{ width: '100%' }}>
-      <CardContent>
+    <Card variant="outlined" sx={{ width: '100%', height: '100%', flexGrow: 1, display: 'flex' }}>
+      <CardContent sx={{ alignContent: 'center', alignItems: 'center', width: '100%', flex: 1 }}>
         <Typography component="h2" variant="subtitle2" gutterBottom>
           Transações
         </Typography>
@@ -142,7 +142,7 @@ export default function TransactionsChart() {
           ]}
           yAxis={[{ width: 50 }]}
           series={series}
-          height={408}
+          height={300}
           margin={{ left: 0, right: 20, top: 20, bottom: 0 }}
           grid={{ horizontal: true }}
           sx={{

@@ -7,7 +7,7 @@ import ChartValueByType from './ChartValueByType';
 import CustomizedDataGrid from './CustomizedDataGrid';
 // import PageViewsBarChart from './PageViewsBarChart';
 import TransactionsChart from './TransactionsChart';
-import StatCard, { StatCardProps } from './StatCard';
+import StatCard, { type StatCardProps } from './StatCard';
 import { useTransactions } from '../hooks/useTransactions';
 import { getTimesPerDate } from '../utils/array.utils';
 
@@ -77,10 +77,10 @@ export default function MainGrid() {
             <StatCard {...card} />
           </Grid>
         ))}
-        <Grid size={{ xs: 12, md: 8 }}>
+        <Grid size={{ xs: 12, md: 8 }} sx={{ display: 'flex' }}>
           <TransactionsChart />
         </Grid>
-        <Grid size={{ xs: 9, md: 4 }}>
+        <Grid size={{ xs: 12, md: 4 }} sx={{ display: 'flex' }}>
           <ChartValueByType />
           {/* <PageViewsBarChart /> */}
         </Grid>
