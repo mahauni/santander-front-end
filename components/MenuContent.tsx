@@ -6,17 +6,19 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AnalyticsRoundedIcon from '@mui/icons-material/AnalyticsRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
+import HubIcon from '@mui/icons-material/Hub';
+import InsightsIcon from '@mui/icons-material/Insights';
 
 import { usePageRouter } from '../hooks/usePageRouter';
 
 const mainListItems = [
-  { text: 'Home', icon: <HomeRoundedIcon /> },
+  { text: 'Analysis', icon: <HubIcon/> },
   { text: 'Dashboard', icon: <AnalyticsRoundedIcon /> },
+  { text: 'Moment CNPJ', icon: <InsightsIcon/> },
 ];
 
 const secondaryListItems = [
