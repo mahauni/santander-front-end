@@ -1,4 +1,8 @@
-import { Transaction } from "../hooks/useTransactions";
+import { type Transaction } from "../hooks/useTransactions";
+
+interface AnyObject {
+  [key: string]: any
+}
 
 export function filterLast30Days(transactions: any[], date: string) {
   const today = new Date(date);
@@ -13,7 +17,7 @@ export function filterLast30Days(transactions: any[], date: string) {
 
 export function getTimesPerDate(transaction: Transaction[]): { date: string, count: unknown }[] {
   return Object.entries(
-    transaction.reduce((acc, item) => {
+    transaction.reduce((acc: AnyObject, item) => {
       acc[item.date] = (acc[item.date] || 0) + 1;
       return acc;
     }, {})

@@ -14,7 +14,7 @@ import { gray } from '../../../../components/shared-theme/themePrimitives';
 export const dataGridCustomizations = {
   MuiDataGrid: {
     styleOverrides: {
-      root: ({ theme }) => ({
+      root: ({ theme }: any) => ({
         '--DataGrid-overlayHeight': '300px',
         overflow: 'clip',
         borderColor: (theme.vars || theme).palette.divider,
@@ -42,10 +42,10 @@ export const dataGridCustomizations = {
           },
         },
       }),
-      cell: ({ theme }) => ({
+      cell: ({ theme }: any) => ({
         borderTopColor: (theme.vars || theme).palette.divider,
       }),
-      menu: ({ theme }) => ({
+      menu: ({ theme }: any) => ({
         borderRadius: theme.shape.borderRadius,
         backgroundImage: 'none',
         [`& .${paperClasses.root}`]: {
@@ -62,7 +62,7 @@ export const dataGridCustomizations = {
           paddingRight: 0,
         },
       }),
-      row: ({ theme }) => ({
+      row: ({ theme }: any) => ({
         '&:last-of-type': {
           borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
         },
@@ -76,7 +76,7 @@ export const dataGridCustomizations = {
           },
         },
       }),
-      iconButtonContainer: ({ theme }) => ({
+      iconButtonContainer: ({ theme }: any) => ({
         [`& .${iconButtonClasses.root}`]: {
           border: 'none',
           backgroundColor: 'transparent',
@@ -97,7 +97,7 @@ export const dataGridCustomizations = {
           }),
         },
       }),
-      menuIconButton: ({ theme }) => ({
+      menuIconButton: ({ theme }: any) => ({
         border: 'none',
         backgroundColor: 'transparent',
         '&:hover': {
@@ -116,11 +116,11 @@ export const dataGridCustomizations = {
           },
         }),
       }),
-      filterForm: ({ theme }) => ({
+      filterForm: ({ theme }: any) => ({
         gap: theme.spacing(1),
         alignItems: 'flex-end',
       }),
-      columnsManagementHeader: ({ theme }) => ({
+      columnsManagementHeader: ({ theme }: any) => ({
         paddingRight: theme.spacing(3),
         paddingLeft: theme.spacing(3),
       }),

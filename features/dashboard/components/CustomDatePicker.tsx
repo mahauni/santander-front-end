@@ -1,17 +1,15 @@
-import * as React from 'react';
 import { useForkRef } from '@mui/material/utils';
 import Button from '@mui/material/Button';
 import CalendarTodayRoundedIcon from '@mui/icons-material/CalendarTodayRounded';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker, DatePickerFieldProps } from '@mui/x-date-pickers/DatePicker';
+import { DatePicker, type DatePickerFieldProps } from '@mui/x-date-pickers/DatePicker';
 import { useTimePeriod } from '../hooks/useTimePeriod'
 import {
   useParsedFormat,
   usePickerContext,
   useSplitFieldProps,
 } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ButtonFieldProps extends DatePickerFieldProps {}

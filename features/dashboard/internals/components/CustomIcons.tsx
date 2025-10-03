@@ -1,4 +1,3 @@
-import * as React from 'react';
 import SvgIcon from '@mui/material/SvgIcon';
 import boletoIcon from '../../assets/images/boleto-bankario.png';
 import faturaIcon from '../../assets/images/fatura.png';
