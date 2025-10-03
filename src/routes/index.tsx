@@ -3,6 +3,7 @@ import AnalysisPageRoute from './analysisPage.tsx';
 import LoginPageRoute from './loginPage.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashboardPageRoute from './dashboardPage.tsx';
+import MomentPageRoute from './momentPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <DashboardPageRoute />,
+  },
+  {
+    path: '/moment',
+    element: <MomentPageRoute />,
   },
 ]);
 

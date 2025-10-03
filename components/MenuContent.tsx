@@ -40,6 +40,9 @@ export default function MenuContent() {
     case 1:
       navigate("/dashboard")
       break
+    case 2:
+      navigate("/moment")
+      break
     }
   }
 
