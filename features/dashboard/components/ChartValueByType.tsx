@@ -35,13 +35,13 @@ const StyledText = styled('text', {
         variant: 'primary',
       },
       style: {
-        fontSize: theme.typography.h5.fontSize,
+        fontSize: theme.typography.body1.fontSize,
       },
     },
     {
       props: ({ variant }) => variant !== 'primary',
       style: {
-        fontSize: theme.typography.body2.fontSize,
+        fontSize: theme.typography.body1.fontSize,
       },
     },
     {
@@ -107,25 +107,25 @@ export default function ChartValueByType() {
   const types = [
     {
       name: 'BOLETO',
-      value: ((valueByType.BOLETO / total) * 100).toFixed(2),
+      value: ((valueByType.boleto/ total) * 100).toFixed(2),
       flag: <BoletoIcon />,
       color: 'hsl(220, 25%, 65%)',
     },
     {
       name: 'PIX',
-      value: ((valueByType.PIX / total) * 100).toFixed(2),
+      value: ((valueByType.pix / total) * 100).toFixed(2),
       flag: <PixIcon />,
       color: 'hsl(220, 25%, 45%)',
     },
     {
       name: 'SISTEMICO',
-      value: ((valueByType.SISTEMICO/ total) * 100).toFixed(2),
+      value: ((valueByType.sistemico / total) * 100).toFixed(2),
       flag: <SistemicoIcon />,
       color: 'hsl(220, 25%, 30%)',
     },
     {
       name: 'TED',
-      value: ((valueByType.TED / total) * 100).toFixed(2),
+      value: ((valueByType.ted / total) * 100).toFixed(2),
       flag: <TedIcon />,
       color: 'hsl(220, 25%, 20%)',
     },

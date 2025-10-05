@@ -3,10 +3,10 @@ import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import { API_URL } from "../../../utils/api.utils";
 
 export type ValueByType = {
-    BOLETO: number
-    PIX: number
-    SISTEMICO: number
-    TED: number
+    boleto: number
+    pix: number
+    sistemico: number
+    ted: number
 }
 
 export function useValueByType(): UseQueryResult<ValueByType, Error> {

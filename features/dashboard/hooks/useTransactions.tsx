@@ -4,11 +4,11 @@ import { API_URL } from "../../../utils/api.utils";
 
 export type Transaction = {
     id: number
-    id_reciever: string
-    id_sender: string
-    type: string
-    value: string
-    date: string
+    id_pgto: string
+    id_rcbe: string
+    vl: string
+    ds_tran: string
+    dt_refe: string
 }
 
 type TransactionQuery = {
@@ -23,7 +23,7 @@ export function useTransactions(): TransactionQuery {
     refetchOnWindowFocus: true,
     queryKey: ["transactions"],
     queryFn: async () => {
-      const response = await fetch(API_URL + "dashboard/transactions");
+      const response = await fetch(API_URL + "dashboard/transactionsss");
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -33,10 +33,10 @@ export function useTransactions(): TransactionQuery {
     },
   });
 
-  const pix = query.data?.filter((value) => value.type === "PIX") ?? []
-  const boleto = query.data?.filter((value) => value.type === "BOLETO") ?? []
-  const ted = query.data?.filter((value) => value.type === "TED") ?? []
-  const sistemico = query.data?.filter((value) => value.type === "SISTEMICO") ?? []
+  const pix = query.data?.filter((value) => value.ds_tran === "PIX") ?? []
+  const boleto = query.data?.filter((value) => value.ds_tran=== "BOLETO") ?? []
+  const ted = query.data?.filter((value) => value.ds_tran === "TED") ?? []
+  const sistemico = query.data?.filter((value) => value.ds_tran === "SISTEMICO") ?? []
 
 
   return {...query, pix, boleto, ted, sistemico }

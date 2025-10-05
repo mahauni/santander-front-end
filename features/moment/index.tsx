@@ -25,7 +25,6 @@ export default function MomentPage() {
     refetch()
   }
 
-
   const handleChangeCnpjCenter = (event: SelectChangeEvent) => {
     setCnpjSelected(event.target.value as string);
   };

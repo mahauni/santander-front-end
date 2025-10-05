@@ -5,8 +5,8 @@ import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { LineChart, type LineSeries } from '@mui/x-charts/LineChart';
-import { useTransactions } from '../hooks/useTransactions';
 import { formatBRL } from '../utils/money.utils';
+import { ChartData, useTransactionsValueChart } from '../hooks/useTransactionsValueChart';
 
 function AreaGradient({ color, id }: { color: string; id: string }) {
   return (
@@ -19,33 +19,18 @@ function AreaGradient({ color, id }: { color: string; id: string }) {
   );
 }
 
-function getDaysInMonth(month: number, year: number) {
-  const date = new Date(year, month, 0);
-  const monthName = date.toLocaleDateString('en-US', {
-    month: 'short',
-  });
-  const daysInMonth = date.getDate();
-  const days: string[] = [];
-  let i = 1;
-  while (days.length < daysInMonth) {
-    days.push(`${monthName} ${i}`);
-    i += 1;
+function transformChartData(chart: ChartData) {
+  if (!chart || !chart.dates || Object.keys(chart.dates).length === 0) {
+    return { dates: [], series: [], total: 0 };
   }
-  return days;
-}
 
-export default function TransactionsChart() {
-  const { pix, boleto, ted, sistemico, data: transactions} = useTransactions()
-  const theme = useTheme();
-  const data = getDaysInMonth(4, 2024);
+  const dates = Object.keys(chart.dates).sort(); // x-axis sorted dates
 
-  if (!pix || !boleto || !ted || !sistemico || !transactions) return
 
-  const colorPalette = [
-    theme.palette.primary.light,
-    theme.palette.primary.main,
-    theme.palette.primary.dark,
-  ];
+  const pixData = dates.map((d) => chart.dates[d].pix);
+  const tedData = dates.map((d) => chart.dates[d].ted);
+  const sistemicoData = dates.map((d) => chart.dates[d].sistemico);
+  const boletoData = dates.map((d) => chart.dates[d].boleto);
 
   const series: LineSeries[] = [
     {
@@ -56,9 +41,7 @@ export default function TransactionsChart() {
       stack: 'total',
       area: true,
       stackOrder: 'ascending',
-      data: pix.map(item => 
-        parseFloat(item.value.replace(/[R$\s,]/g, ""))
-      ).slice(0, 30) as number[],
+      data: pixData,
     },
     {
       id: 'boleto',
@@ -68,9 +51,7 @@ export default function TransactionsChart() {
       stack: 'total',
       area: true,
       stackOrder: 'ascending',
-      data: boleto.map(item => 
-        parseFloat(item.value.replace(/[R$\s,]/g, ""))
-      ).slice(0, 30) as number[],
+      data: boletoData,
     },
     {
       id: 'ted',
@@ -79,9 +60,7 @@ export default function TransactionsChart() {
       curve: 'linear',
       stack: 'total',
       stackOrder: 'ascending',
-      data: ted.map(item => 
-        parseFloat(item.value.replace(/[R$\s,]/g, ""))
-      ).slice(0, 30) as number[],
+      data: tedData,
       area: true,
     },
     {
@@ -91,17 +70,32 @@ export default function TransactionsChart() {
       curve: 'linear',
       stack: 'total',
       stackOrder: 'ascending',
-      data: sistemico.map(item => 
-        parseFloat(item.value.replace(/[R$\s,]/g, ""))
-      ).slice(0, 30) as number[],
+      data: sistemicoData,
       area: true,
     },
-  ]
+  ];
 
-  const total = transactions.reduce((sum, item) => {
-    const value = parseFloat(item.value.replace("R$ ", "").replace(",", ""));
-    return sum + value;
-  }, 0);
+  const total = [...pixData, ...tedData, ...sistemicoData, ...boletoData].reduce(
+    (acc, value) => acc + value,
+    0
+  );
+
+  return { dates, series, total };
+}
+
+export default function TransactionsChart() {
+  const { data: transactionsChart } = useTransactionsValueChart()
+  const theme = useTheme();
+
+  if (!transactionsChart) return
+
+  const { dates, series, total } = transformChartData(transactionsChart);
+
+  const colorPalette = [
+    theme.palette.primary.light,
+    theme.palette.primary.main,
+    theme.palette.primary.dark,
+  ];
 
   const totalBRL = formatBRL.format(total);
 
@@ -134,7 +128,7 @@ export default function TransactionsChart() {
           xAxis={[
             {
               scaleType: 'point',
-              data,
+              data: dates,
               tickInterval: (_, i) => (i + 1) % 5 === 0,
               height: 24,
             },

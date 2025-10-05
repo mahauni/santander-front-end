@@ -7,57 +7,80 @@ import CustomizedDataGrid from './CustomizedDataGrid';
 // import PageViewsBarChart from './PageViewsBarChart';
 import TransactionsChart from './TransactionsChart';
 import StatCard, { type StatCardProps } from './StatCard';
-import { useTransactions } from '../hooks/useTransactions';
-import { getTimesPerDate } from '../utils/array.utils';
+import { CountData, useTransactionsCountType } from '../hooks/useTransactionsCountType';
 
-export default function MainGrid() {
-  const { pix, boleto, ted, sistemico } = useTransactions()
+function transformChartData(chart: CountData) {
+  const dates = Object.keys(chart.dates).sort(); // x-axis sorted dates
 
-  if (!pix || !boleto || !ted || !sistemico) return
 
-  // ajustar isso daqui porque isso nao esta certo
-  const data: StatCardProps[] = [
+  const pixData = dates.map((d) => chart.dates[d].pix);
+  const tedData = dates.map((d) => chart.dates[d].ted);
+  const sistemicoData = dates.map((d) => chart.dates[d].sistemico);
+  const boletoData = dates.map((d) => chart.dates[d].boleto);
+
+
+  const pixTotal = pixData.reduce(
+    (acc: number, curr: number) => acc + curr,
+    0
+  )
+
+  const boletoTotal = boletoData.reduce(
+    (acc: number, curr: number) => acc + curr,
+    0
+  )
+
+
+  const sistemicoTotal = sistemicoData.reduce(
+    (acc: number, curr: number) => acc + curr,
+    0
+  )
+
+  const tedTotal = tedData.reduce(
+    (acc: number, curr: number) => acc + curr,
+    0
+  )
+
+  const series: StatCardProps[] = [
     {
       title: 'PIX',
-      value: `${pix.length} vezes`,
+      value: `${pixTotal} vezes`,
       interval: 'Last 30 days',
       trend: 'up',
-      // data: filterLast30Days(getTimesPerDate(pix)).map(item => 
-      //   item.count
-      // ),
-      data: getTimesPerDate(pix).map(item => 
-        item.count
-      ).slice(0, 30) as number[],
+      data: pixData,
     },
     {
       title: 'BOLETO',
-      value: `${boleto.length} vezes`,
+      value: `${boletoTotal} vezes`,
       interval: 'Last 30 days',
       trend: 'down',
-      data: getTimesPerDate(boleto).map(item => 
-        item.count
-      ).slice(0, 30) as number[],
+      data: boletoData,
     },
     {
       title: 'SITEMICO',
-      value: `${sistemico.length} vezes`,
+      value: `${sistemicoTotal} vezes`,
       interval: 'Last 30 days',
       trend: 'neutral',
-      data: getTimesPerDate(sistemico).map(item => 
-        item.count
-      ).slice(0, 30) as number[],
+      data: sistemicoData,
     },
     {
       title: 'TED',
-      value: `${ted.length} vezes`,
+      value: `${tedTotal} vezes`,
       interval: 'Last 30 days',
       trend: 'neutral',
-      data: getTimesPerDate(ted).map(item => 
-        item.count
-      ).slice(0, 30) as number[],
+      data: tedData,
     },
   ];
 
+  return series;
+}
+
+
+export default function MainGrid() {
+  const { data: transactionsData } = useTransactionsCountType()
+
+  if (!transactionsData) return
+
+  const series = transformChartData(transactionsData);
 
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
@@ -71,7 +94,7 @@ export default function MainGrid() {
         columns={12}
         sx={{ mb: (theme) => theme.spacing(2) }}
       >
-        {data.map((card, index) => (
+        {series.map((card, index) => (
           <Grid key={index} size={{ xs: 12, sm: 6, lg: 3 }}>
             <StatCard {...card} />
           </Grid>
