@@ -4,6 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { type SelectChangeEvent } from '@mui/material/Select';
+import { InteractiveNvlWrapper } from '@neo4j-nvl/react'
 
 import SideMenu from "../../components/SideMenu";
 import { useMakeAnalysis } from "./hooks/useMakeAnalysis";
@@ -28,8 +29,8 @@ export default function AnalysisPage() {
   }
 
 
-  const handleChangeCnpjCenter = (event: SelectChangeEvent) => {
-    setCnpjSelected(event.target.value as string);
+  const handleChangeCnpjCenter = (newValue: string | null) => {
+    setCnpjSelected(newValue ?? '')
   };
 
 
@@ -75,6 +76,16 @@ export default function AnalysisPage() {
                   handleChangeCnpjCenter={handleChangeCnpjCenter} 
                   cnpjList={cnpjList}
                 />
+
+
+                <div style={{ width: '100%', height: 500 }}>
+                  <InteractiveNvlWrapper
+                    nodes={[{ id: '0' }, { id: '1' }]}
+                    rels={[{ id: '10', from: '0', to: '1' }]}
+                    nvlOptions={{ initialZoom: 2 }}
+                    nvlCallbacks={{ onLayoutDone: () => console.log('layout done') }}
+                  />
+                </div>
 
                 {data && (
                   <AnalysisProblem data={data} /> 

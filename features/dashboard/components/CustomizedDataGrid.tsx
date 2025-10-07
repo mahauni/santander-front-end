@@ -1,14 +1,21 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { columns } from '../internals/data/gridData';
-import { useTransactions } from '../hooks/useTransactions';
+import { usePaginationTransactions } from '../hooks/usePaginationTransactions';
+import { useState } from 'react';
 
 export default function CustomizedDataGrid() {
-  const { data: transactions } = useTransactions()
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 10,
+  });
+  const { data: pagination, isLoading } = usePaginationTransactions(paginationModel.page, paginationModel.pageSize)
+
+  if (!pagination) return
 
   return (
     <DataGrid
       checkboxSelection
-      rows={transactions}
+      rows={pagination.data}
       columns={columns}
       getRowClassName={(params) =>
         params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
@@ -16,7 +23,12 @@ export default function CustomizedDataGrid() {
       initialState={{
         pagination: { paginationModel: { pageSize: 20 } },
       }}
-      pageSizeOptions={[10, 20, 50]}
+      pageSizeOptions={[10, 20, 50, 100]}
+      paginationModel={paginationModel}
+      onPaginationModelChange={setPaginationModel}
+      rowCount={pagination.total}
+      paginationMode='server'
+      loading={isLoading}
       disableColumnResize
       density="compact"
       slotProps={{

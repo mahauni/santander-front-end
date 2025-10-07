@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
 import { areaElementClasses } from '@mui/x-charts/LineChart';
+import { useTimePeriod } from '../hooks/useTimePeriod';
 
 export type StatCardProps = {
   title: string;
@@ -16,13 +17,15 @@ export type StatCardProps = {
   data: number[];
 };
 
-function getDaysInMonth(month: number, year: number) {
-  const date = new Date(year, month, 0);
+function getDaysInMonth(dateString: string) {
+  const date = new Date(dateString);
+  // verify if when changing the date to search new thigns it will break lol
+  date.setMonth(date.getMonth() + 1, 0);
   const monthName = date.toLocaleDateString('en-US', {
     month: 'short',
   });
   const daysInMonth = date.getDate();
-  const days = [];
+  const days: string[] = [];
   let i = 1;
   while (days.length < daysInMonth) {
     days.push(`${monthName} ${i}`);
@@ -50,7 +53,10 @@ export default function StatCard({
   data,
 }: StatCardProps) {
   const theme = useTheme();
-  const daysInWeek = getDaysInMonth(5, 2024);
+  const { dateString } = useTimePeriod()
+  const daysInWeek = getDaysInMonth(dateString);
+  // this is for when to test the date and refetch the data
+  // const daysInWeek = getDaysInMonth("2025-05-21");
 
   const trendColors = {
     up:

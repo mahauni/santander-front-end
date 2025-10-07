@@ -9,10 +9,10 @@ export default function Title() {
       <CardContent>
         <Stack sx={{ justifyContent: 'space-between' }}>
           <Typography component="h2" variant="h4" sx={{ mb: 2 }}>
-                        Analysis Report
+            Analysis Report
           </Typography>
           <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                        Click the button below to view the analysis image and details.
+            Click the button below to view the analysis image and details.
           </Typography>
         </Stack>
       </CardContent>

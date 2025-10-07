@@ -79,19 +79,19 @@ export function renderAvatar(
 
 export const columns: GridColDef[] = [
   {
-    field: 'id_sender',
+    field: 'id_pgto',
     headerName: 'CNPJ Remetente',
     flex: 1,
     minWidth: 80
   },
   {
-    field: 'id_reciever',
+    field: 'id_rcbe',
     headerName: 'CPNJ Receptor',
     flex: 1,
     minWidth: 80,
   },
   {
-    field: 'type',
+    field: 'ds_tran',
     headerName: 'Pagamento',
     flex: 0.7,
     align: 'center',
@@ -100,7 +100,7 @@ export const columns: GridColDef[] = [
     renderCell: (params) => renderStatus(params.value as any),
   },
   {
-    field: 'value',
+    field: 'vl',
     headerName: 'Valor R$',
     headerAlign: 'right',
     align: 'right',
@@ -108,7 +108,7 @@ export const columns: GridColDef[] = [
     minWidth: 100,
   },
   {
-    field: 'date',
+    field: 'dt_refe',
     headerName: 'Data',
     headerAlign: 'right',
     align: 'right',
