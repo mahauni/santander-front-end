@@ -3,17 +3,19 @@ import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
-import { API_URL } from "../../../utils/api.utils"
+// import { API_URL } from "../../../utils/api.utils"
 
-import InnerImageZoom from "react-inner-image-zoom";
+// import InnerImageZoom from "react-inner-image-zoom";
 
-import "react-inner-image-zoom/lib/styles.min.css";
+// import "react-inner-image-zoom/lib/styles.min.css";
+import { InteractiveNvlWrapper } from "@neo4j-nvl/react"
 
 interface AnalysisProblemProps {
+    nodes: any
     data: any
 }
 
-export default function AnalysisProblem({ data }: AnalysisProblemProps) {
+export default function AnalysisProblem({ data, nodes }: AnalysisProblemProps) {
   return (
     <Grid
       container
@@ -24,8 +26,20 @@ export default function AnalysisProblem({ data }: AnalysisProblemProps) {
     >
       <Grid size={{ xs: 12, md: 9 }}>
         <Card variant="outlined" sx={{ width: '100%', height: '100%' }}>
-          <CardContent>
-            <InnerImageZoom zoomScale={0.8} src={API_URL + `analysis/image?t=${Date.now()}`} />
+          <CardContent sx={{ width: 1500, height: 800 }}>
+            <InteractiveNvlWrapper
+              nodes={nodes.nodes}
+              rels={nodes.relationships}
+              nvlOptions={{ initialZoom: 2 }}
+              mouseEventCallbacks={{
+                onZoom: true,
+                onDrag: true,
+                onCanvasClick: true,
+                onPan: true,
+                onHover: true,
+                onNodeClick: true,
+              }}
+            />
           </CardContent>
         </Card>
       </Grid>
@@ -35,7 +49,7 @@ export default function AnalysisProblem({ data }: AnalysisProblemProps) {
           <CardContent sx={{ alignContent: "center", alignItems: "center" }}>
             {data.map((d: any, i: number) => {
               return (
-                <Typography sx={{ mb: 2 }} variant="body1" key={i}>
+                <Typography sx={{ mb: 2 }} variant="h5" key={i}>
                   {d[1]}{" "}
                   <span style={{ color: d[2] }}>
                     {Object.keys(d[0]).join(", ")}

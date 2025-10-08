@@ -3,7 +3,6 @@ import { alpha } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import { type SelectChangeEvent } from '@mui/material/Select';
 import { InteractiveNvlWrapper } from '@neo4j-nvl/react'
 
 import SideMenu from "../../components/SideMenu";
@@ -17,6 +16,7 @@ import { useState } from 'react';
 import Title from './components/Title';
 import AnalysisTweeks from './components/AnalysisTweeks';
 import AnalysisProblem from './components/AnalysisProblem';
+import { useNeo4jQuery } from "./hooks/useNeo4j"
 
 export default function AnalysisPage() {
   const [cnpjSelected, setCnpjSelected] = useState('')
@@ -24,7 +24,13 @@ export default function AnalysisPage() {
   const { data: cnpjs } = useAllCnpj()
   const cnpjList = cnpjs ? cnpjs.cnpjs: []
 
+  const { data: nodes, execute } = useNeo4jQuery(
+    'MATCH (payer:Company)-[t:TRANSACTION]->(receiver:Company) RETURN payer, t, receiver LIMIT 100',
+    {},
+  );
+
   function onClickButtonAnalysis() {
+    execute()
     refetch()
   }
 
@@ -77,18 +83,8 @@ export default function AnalysisPage() {
                   cnpjList={cnpjList}
                 />
 
-
-                <div style={{ width: '100%', height: 500 }}>
-                  <InteractiveNvlWrapper
-                    nodes={[{ id: '0' }, { id: '1' }]}
-                    rels={[{ id: '10', from: '0', to: '1' }]}
-                    nvlOptions={{ initialZoom: 2 }}
-                    nvlCallbacks={{ onLayoutDone: () => console.log('layout done') }}
-                  />
-                </div>
-
-                {data && (
-                  <AnalysisProblem data={data} /> 
+                {data && nodes && (
+                  <AnalysisProblem nodes={nodes} data={data} /> 
                 )}
               </Grid>
             </Box>
